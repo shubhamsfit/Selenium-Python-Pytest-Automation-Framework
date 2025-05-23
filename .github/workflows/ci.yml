@@ -30,7 +30,7 @@ jobs:
           pytest --html=reports/report.html --self-contained-html
 
       - name: Upload HTML report artifact
-        uses: actions/upload-artifact@v2  # Using v2 for compatibility
+        uses: actions/upload-artifact@v3
         with:
           name: selenium-test-report
           path: reports/report.html
