@@ -1,0 +1,38 @@
+name: Scheduled Selenium Tests
+
+on:
+  schedule:
+    # Run at 08:30 UTC Monday–Friday (2:00 PM IST)
+    - cron: '30 8 * * 1-5'
+
+  # Optional: allow manual trigger too
+  workflow_dispatch:
+
+jobs:
+  test_and_generate_report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests and generate HTML report
+        run: |
+          mkdir -p reports
+          pytest --html=reports/report.html --self-contained-html
+
+      - name: Upload HTML report artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: selenium-test-report
+          path: reports/report.html
