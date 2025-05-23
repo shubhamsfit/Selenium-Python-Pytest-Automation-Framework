@@ -4,7 +4,7 @@ on:
   schedule:
     # Run at 09:30 UTC (3:00 PM IST) Monday–Friday
     - cron: '30 9 * * 1-5'
-  workflow_dispatch:   # <-- manual trigger to show in Actions UI & allow manual runs
+  workflow_dispatch:
 
 jobs:
   test_and_generate_report:
@@ -30,7 +30,7 @@ jobs:
           pytest --html=reports/report.html --self-contained-html
 
       - name: Upload HTML report artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@e7c0d6f9e4a0fa67a84130b09f9e2d872a3bc5e1
         with:
           name: selenium-test-report
           path: reports/report.html
