@@ -5,6 +5,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 def create_driver():
     options = Options()
-    # Comment this if you want to see browser: options.add_argument("--headless")
+    options.add_argument("--headless")  # Disabled for visible browser
     service = Service(ChromeDriverManager().install())
-    return webdriver.Chrome(service=service, options=options)
+    driver = webdriver.Chrome(service=service, options=options)
+    return driver
